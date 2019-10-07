@@ -10,7 +10,7 @@ from model.init import weight_variable_init, bias_variable_init
 from model.fusion import recurent_matrix, content_fusion
 from model.CNN_MODEL import forward_feature
 
-train_path = 'msrvtt/data'
+train_path = 'datasets/msrvtt'
 train = h5py.File(train_path, 'r')
 train_data = train['feature']
 train_cap = train['caption']
