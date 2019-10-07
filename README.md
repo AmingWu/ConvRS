@@ -12,3 +12,6 @@ We used tensorflow 1.0.0, python 2.7 and CUDA 8.0 for this project. Before using
 
 ## Training
 CUDA_VISIBLE_DEVICES=0 python train.py
+
+## Test
+CUDA_VISIBLE_DEVICES=0 python test.py
