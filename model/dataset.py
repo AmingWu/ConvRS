@@ -1,7 +1,7 @@
 import numpy as np
 import h5py
 
-train_path = 'msrvtt/data'
+train_path = 'datasets/msrvtt'
 
 train = h5py.File(train_path, 'r')
 train_data = train['feature']
