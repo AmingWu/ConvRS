@@ -3,6 +3,7 @@ from model.fusion import recurent_matrix, content_fusion
 from model.dataset import next_supervise_batch
 from model.preprocess import encode_feature, attention, encode, decode
 from model.init import weight_variable_init, bias_variable_init
+dic_num = 23308
 
 def modal_fusion(text_f, visual_f, fusion_para, dropout):
 
@@ -18,8 +19,7 @@ def modal_fusion(text_f, visual_f, fusion_para, dropout):
     fusion_v = tf.nn.dropout(fusion_v, dropout)
     return fusion_v
 
-def forward_feature(feature, caption, mask, dropout, first_attention, fouth_attention, \
-    fusion_para, Encode, Dilation, channel_fusion, word_embed, embed_bias):
+def forward_feature(feature, caption, mask, dropout, first_attention, fouth_attention, fusion_para, Encode, Dilation, channel_fusion, word_embed, embed_bias):
 
     #encoder
     process_feature = feature
@@ -304,8 +304,7 @@ def forward_feature(feature, caption, mask, dropout, first_attention, fouth_atte
 
     return result, loss
 
-def forward_test(feature, first_attention, fouth_attention, fusion_para, Encode, \ 
-    Dilation, word_embed, embed_bias, dropout=1.0, batch_size=1):
+def forward_test(feature, first_attention, fouth_attention, fusion_para, Encode, Dilation, channel_fusion, word_embed, embed_bias, dropout=1.0, batch_size=1):
 
     #encoder
     process_feature = feature
@@ -404,7 +403,7 @@ def forward_test(feature, first_attention, fouth_attention, fusion_para, Encode,
 
             x1 = word
             w_s = tf.squeeze(word, 0)
-            w_p = tf.argmax(w_s)
+            w_p = tf.argmax(w_s, 0)
             x1 = tf.one_hot(w_p, dic_num)
             x1 = tf.expand_dims(x1, 0)
             x = tf.matmul(x1, word_embed['embed']) + embed_bias['bias_embed']
@@ -503,7 +502,7 @@ def forward_test(feature, first_attention, fouth_attention, fusion_para, Encode,
 
                 x1 = word
                 w_s = tf.squeeze(word, 0)
-                w_p = tf.argmax(w_s)
+                w_p = tf.argmax(w_s, 0)
                 x1 = tf.one_hot(w_p, dic_num)
                 x1 = tf.expand_dims(x1, 0)
                 x = tf.matmul(x1, word_embed['embed']) + embed_bias['bias_embed']
@@ -524,7 +523,7 @@ def forward_test(feature, first_attention, fouth_attention, fusion_para, Encode,
 
                 x1 = word
                 w_s = tf.squeeze(word, 0)
-                w_p = tf.argmax(w_s)
+                w_p = tf.argmax(w_s, 0)
                 x1 = tf.one_hot(w_p, dic_num)
                 x1 = tf.expand_dims(x1, 0)
                 x = tf.matmul(x1, word_embed['embed']) + embed_bias['bias_embed']
